@@ -1,3 +1,10 @@
+const hyphen = `
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 482 1036">
+	<g>
+		<path class="digit__path" d="m345.6 463.5h-209.9l-107.9 57.7 107.9 57.7h209.9l113.7-57.7z"/>
+	</g>
+</svg>
+`;
 const num0 = `
 <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 482 1036">
 	<g>
@@ -137,6 +144,9 @@ const displayDigit = () => {
 		switch (char) {
 			case ".":
 				ele.classList.add("dot");
+				break;
+			case "-":
+				ele.innerHTML += hyphen;
 				break;
 			case "0":
 				ele.innerHTML += num0;
@@ -285,7 +295,7 @@ const handleClick = (char) => {
 					typedValue += `${displayValue}%`;
 
 					clearDisplay();
-				} else if (lastChar !== "%") {
+				} else if (lastChar !== "%" && isNaN(parseInt(lastChar))) {
 					typedValue = typedValue.slice(0, -1) + "%";
 				}
 
@@ -365,6 +375,7 @@ const handleClick = (char) => {
 				if (
 					lastChar === "%" ||
 					lastChar === ")" ||
+					typedLength <= 0 ||
 					!isNaN(parseInt(lastChar))
 				) {
 					typedValue += "-";
@@ -384,6 +395,7 @@ const handleClick = (char) => {
 				if (
 					lastChar === "%" ||
 					lastChar === ")" ||
+					typedLength <= 0 ||
 					!isNaN(parseInt(lastChar))
 				) {
 					typedValue += "+";
